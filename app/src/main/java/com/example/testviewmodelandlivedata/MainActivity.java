@@ -1,14 +1,15 @@
 package com.example.testviewmodelandlivedata;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
-    int firstNumber = 0;
 
+    private MainActivityViewModel viewModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,31 +20,33 @@ public class MainActivity extends AppCompatActivity {
         Button minusOneButton = findViewById(R.id.minusOneButton);
         Button resetButton = findViewById(R.id.resetButton);
 
+        viewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
+
         plusOneButton.setOnClickListener(v -> {
             incrementNumber();
-            numberTextView.setText(String.valueOf(firstNumber));
+            numberTextView.setText(String.valueOf(viewModel.firstNumber));
         });
 
         minusOneButton.setOnClickListener(v -> {
             decrementNumber();
-            numberTextView.setText(String.valueOf(firstNumber));
+            numberTextView.setText(String.valueOf(viewModel.firstNumber));
         });
 
         resetButton.setOnClickListener(v -> {
             resetNumber();
-            numberTextView.setText(String.valueOf(firstNumber));
+            numberTextView.setText(String.valueOf(viewModel.firstNumber));
         });
     }
 
     void incrementNumber() {
-        firstNumber++;
+        viewModel.firstNumber++;
     }
     void decrementNumber() {
-        if(firstNumber > 0){
-            firstNumber--;
+        if(viewModel.firstNumber > 0){
+            viewModel.firstNumber--;
         }
     }
     void resetNumber() {
-        firstNumber = 0;
+        viewModel.firstNumber = 0;
     }
 }

@@ -4,4 +4,7 @@ import androidx.lifecycle.ViewModel;
 
 public class MainActivityViewModel extends ViewModel {
 
+    int firstNumber = 0;
+
+
 }
