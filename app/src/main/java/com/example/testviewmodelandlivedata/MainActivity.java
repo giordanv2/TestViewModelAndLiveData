@@ -22,31 +22,18 @@ public class MainActivity extends AppCompatActivity {
 
         viewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
 
+        viewModel.getFirstNumber().observe(this, number -> numberTextView.setText(String.valueOf(number)));
+
         plusOneButton.setOnClickListener(v -> {
-            incrementNumber();
-            numberTextView.setText(String.valueOf(viewModel.firstNumber));
+            viewModel.incrementNumber();
         });
 
         minusOneButton.setOnClickListener(v -> {
-            decrementNumber();
-            numberTextView.setText(String.valueOf(viewModel.firstNumber));
+            viewModel.decrementNumber();
         });
 
         resetButton.setOnClickListener(v -> {
-            resetNumber();
-            numberTextView.setText(String.valueOf(viewModel.firstNumber));
+            viewModel.resetNumber();
         });
-    }
-
-    void incrementNumber() {
-        viewModel.firstNumber++;
-    }
-    void decrementNumber() {
-        if(viewModel.firstNumber > 0){
-            viewModel.firstNumber--;
-        }
-    }
-    void resetNumber() {
-        viewModel.firstNumber = 0;
     }
 }
